@@ -2,6 +2,7 @@
 #define DCMOTOR_H
 #include "ofMain.h"
 #include "ofxOsc.h"
+
 class dcMotor
 {
     public:
@@ -18,7 +19,10 @@ class dcMotor
         void checkMousePressed(int mouseX,int mouseY);
         bool getControlChange();
         void setControlChange(bool boolean);
+        void sendOneFloat(string address,float value);
         string getName();
+        bool getMessageSended();//true if messageSended
+        void setMessageSended(bool boolean);
     protected:
     private:
         int thisRefNumber;
@@ -33,7 +37,12 @@ class dcMotor
         int rectRoundRadius;
         float speedValue;
         bool controlChanged;
+        //OSC Var
         ofxOscSender oscSender;
+        ofxOscMessage oscMessage;
+        int oscSendPort ;
+        string oscSendIP;
+        bool messageSended;//true if sendOneFloat is called
 };
 
 #endif // DCMOTOR_H

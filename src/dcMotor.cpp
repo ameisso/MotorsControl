@@ -10,6 +10,8 @@ dcMotor::dcMotor(int theNumber,string name,int positionX,int positionY,string se
     cursorPosition=0;
     onMaster=false;
     controlChanged=false;
+    oscSendIP=sendIP;
+    oscSendPort=sendPort;
     oscSender.setup(sendIP,sendPort);
     cout<<"MOTOR : '"<<thisName<<"' @:"<<sendIP<<":"<<ofToString(sendPort)<<endl;
 }
@@ -48,6 +50,7 @@ void dcMotor::setSpeed(float theValue)
     cursorPosition=theValue;
     setControlChange(true);
     //TODO send over OSC
+    sendOneFloat("/1/M"+ofToString(thisRefNumber),theValue);
 }
 void dcMotor::setOnMaster(bool boolean)
 {
@@ -89,8 +92,9 @@ int dcMotor::getRefNumber()
 {
     return thisRefNumber;
 }
-bool dcMotor::getControlChange(){
-return controlChanged;
+bool dcMotor::getControlChange()
+{
+    return controlChanged;
 }
 void dcMotor::setControlChange(bool boolean)
 {
@@ -104,4 +108,21 @@ string dcMotor::getName()
 dcMotor::~dcMotor()
 {
     //dtor
+}
+void dcMotor::sendOneFloat(string address,float value)
+{
+    ofxOscMessage msgToSend = ofxOscMessage();
+    msgToSend.setAddress(address);
+    msgToSend.addFloatArg(value);
+    oscSender.sendMessage(msgToSend);
+    //cout<<"Sended : "<<value<<" @"<< address<< " on :"<<oscSendIP<<":"<<oscSendPort<<endl;
+    messageSended=true;
+}
+void dcMotor::setMessageSended(bool boolean)
+{
+    messageSended=boolean;
+}
+bool dcMotor::getMessageSended()
+{
+    return messageSended;
 }

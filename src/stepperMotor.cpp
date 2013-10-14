@@ -17,6 +17,7 @@ void stepperMotor::stepTo(int position)
     currentPosition=position;
     controlChanged=true;
     //TODO : send the new position over OSC
+    sendOneFloat("/4/S"+ofToString(thisRefNumber),position);
 }
 void stepperMotor::draw()
 {
@@ -39,7 +40,7 @@ void stepperMotor::checkMousePressed(int mouseX,int mouseY)
         //cout<<"we're in"<<thisRefNumber<<endl;
         float mousePosX=mouseX-thisPositionX;//absolute position of the Mouse from the center of the circle.
         float mousePosY=mouseY-thisPositionY;
-        float angle;
+        float angle=0;
         //cout<<"Y="<<mousePosY<<" X="<<mousePosX<<endl;
         if (mousePosX>0)
         {
@@ -84,4 +85,21 @@ string stepperMotor::getName()
 stepperMotor::~stepperMotor()
 {
     //dtor
+}
+void stepperMotor::sendOneFloat(string address,float value)
+{
+    ofxOscMessage msgToSend = ofxOscMessage();
+    msgToSend.setAddress(address);
+    msgToSend.addFloatArg(value);
+    oscSender.sendMessage(msgToSend);
+    //cout<<"Sended : "<<value<<" @"<< address<< " on :"<<oscSendIP<<":"<<oscSendPort<<endl;
+    messageSended=true;
+}
+void stepperMotor::setMessageSended(bool boolean)
+{
+    messageSended=boolean;
+}
+bool stepperMotor::getMessageSended()
+{
+    return messageSended;
 }

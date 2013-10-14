@@ -22,9 +22,16 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
         void readXmlSetup();
         void receiveOscMessage();
+        void oscSendedMessageStatus(); //set true if a message was sended,
+    private :
         int nbDcMotors;
         int nbStepperMotor;
         int nbMemory;
+        //boolean that indicate if a message was received in this loop
+        //in order to show an "activity square in the top right corner
+        bool messageReceived;
+        bool messageSended;
+        bool frameActivitySqaures;
 		//void createMotors();
 		//void createSteppers();
         vector< ofPtr<dcMotor> > theDcMotors;

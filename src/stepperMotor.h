@@ -15,6 +15,9 @@ class stepperMotor
         int getRefNumber();
         int getCurrentPosition();
         string getName();
+        void sendOneFloat(string address,float value);
+        bool getMessageSended();//true if messageSended
+        void setMessageSended(bool boolean);
     protected:
     private:
         int thisRefNumber;
@@ -25,6 +28,11 @@ class stepperMotor
         int thisRadius;//Radius value of the draw method
         int nbSteps;//nb steps for one complete rotation
         bool controlChanged;
+        //OSC Var
         ofxOscSender oscSender;
+        ofxOscMessage oscMessage;
+        int oscSendPort ;
+        string oscSendIP;
+        bool messageSended;//true if sendOneFloat is called
 };
 #endif // STEPPERMOTOR_H

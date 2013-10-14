@@ -1,8 +1,18 @@
+/*
+OscCommands:
+- Osc Current Value : /1/M{motor Number}
+- On Master : /1/masterM{motor Number}
+- stepper /4/S{stepper Number}
+- MemoryPlay : /2/playMemory{Memory Number}
+- Memory Rec : /2/recMemory{Memory Number}
+*/
+
 #include "testApp.h"
 #include "ofxOsc.h"
 
 //--------------------------------------------------------------
 void testApp::setup(){
+ofSetFrameRate(15);
 readXmlSetup();
 thisOscReceiver.setup(oscReceivePort);
 //nbDcMotors=14;
@@ -24,16 +34,57 @@ for (int i=0;i<nbStepperMotor;i++){
 //--------------------------------------------------------------
 void testApp::update(){
 wrongMess="";
+messageReceived=false;//if no message received, set to false
 receiveOscMessage();
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
     ofBackground(0);
+    //Top infos
     ofFill();
     ofRect(0,0,ofGetWindowWidth(),20);
     ofSetColor(0);
-    ofDrawBitmapString("Listenning on port:"+ofToString(oscReceivePort)+" @"+ofToString(ofGetFrameRate())+" fps "+wrongMess, 10,14 );
+    ofDrawBitmapString("Listenning on port:"+ofToString(oscReceivePort)+wrongMess, 10,14 );
+    //Frame Activity square
+    ofSetColor(232,210,42);
+    if (frameActivitySqaures==true)
+    {
+        frameActivitySqaures=false;
+        ofRect(ofGetWidth()-30,0,10,10);
+        ofRect(ofGetWidth()-20,10,10,10);
+        ofRect(ofGetWidth()-10,0,10,10);
+    }
+    else
+    {
+        frameActivitySqaures=true;
+        ofRect(ofGetWidth()-30,10,10,10);
+        ofRect(ofGetWidth()-20,0,10,10);
+        ofRect(ofGetWidth()-10,10,10,10);
+    }
+    //OSCactivity Squares
+    oscSendedMessageStatus();//check if a message was sended
+    if (messageReceived==true)
+    {
+        ofSetColor(255,0,0);
+        ofRect(ofGetWidth()-40,10,10,10);
+    }
+    else
+    {
+        ofSetColor(0,0,0);
+        ofRect(ofGetWidth()-40,10,10,10);
+    }
+    if (messageSended==true)
+    {
+        messageSended=false;
+        ofSetColor(0,255,0);
+        ofRect(ofGetWidth()-40,0,10,10);
+    }
+    else
+    {
+        ofSetColor(0,0,0);
+        ofRect(ofGetWidth()-40,0,10,10);
+    }
     //dc motors
     for(vector< ofPtr<dcMotor> >::iterator it = theDcMotors.begin(); it != theDcMotors.end(); ++it)
             (*it)->draw();
@@ -132,18 +183,18 @@ void testApp::receiveOscMessage(){
  while(thisOscReceiver.hasWaitingMessages())
     {
         thisOscReceiver.getNextMessage(&thisOscReceivedMessage);
-
+        messageReceived=true;
         for(int i = 0; i < thisOscReceivedMessage.getNumArgs(); i++)
         {
-            //cout<<"Received "<<thisOscReceivedMessage.getArgAsFloat(0)<<"on"<<thisOscReceivedMessage.getAddress()<<endl;
+            //cout<<"Received "<<thisOscReceivedMessage.getArgAsFloat(0)<<" on"<<thisOscReceivedMessage.getAddress()<<endl;
             for (int i=0; i<nbDcMotors;i++)
             {
-                if(thisOscReceivedMessage.getAddress()=="M"+ofToString(i))
+                if(thisOscReceivedMessage.getAddress()=="/1/M"+ofToString(i))
                 {
                     float value=thisOscReceivedMessage.getArgAsFloat(0);
                     theDcMotors[i]->setSpeed(value);
                 }
-                else if(thisOscReceivedMessage.getAddress()=="masterM"+ofToString(i))
+                else if(thisOscReceivedMessage.getAddress()=="/1/masterM"+ofToString(i))
                 {
                     float value=thisOscReceivedMessage.getArgAsFloat(0);
                     if (value==0.0)
@@ -156,12 +207,41 @@ void testApp::receiveOscMessage(){
                     }
 
                 }
+
                 else
                 {
                   wrongMess="!!!received "+ofToString(thisOscReceivedMessage.getArgAsFloat(0))+"on"+thisOscReceivedMessage.getAddress();
                 }
 
             }
+            for (int i=0;i<nbStepperMotor;i++)
+            {
+                if(thisOscReceivedMessage.getAddress()=="/4/S"+ofToString(i))
+                {
+                    float value=thisOscReceivedMessage.getArgAsFloat(0);
+                    theSteppers[i]->stepTo(value);
+                }
+            }
+        }
+    }
+
+}
+void testApp::oscSendedMessageStatus()
+{
+    for(vector< ofPtr<dcMotor> >::iterator it = theDcMotors.begin(); it != theDcMotors.end(); ++it)
+    {
+        if((*it)->getMessageSended()==true)
+        {
+            (*it)->setMessageSended(false);
+            messageSended=true;
+        }
+    }
+    for(vector< ofPtr<stepperMotor> >::iterator it = theSteppers.begin(); it != theSteppers.end(); ++it)
+    {
+        if((*it)->getMessageSended()==true)
+        {
+            (*it)->setMessageSended(false);
+            messageSended=true;
         }
     }
 }
