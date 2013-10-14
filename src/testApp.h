@@ -35,6 +35,8 @@ class testApp : public ofBaseApp{
         int oscReceivePort;
         string oscSendAddress;
         ofxOscReceiver thisOscReceiver;
+        ofxOscMessage thisOscReceivedMessage;
+        string wrongMess;//String that contain an osc message if it wasn't destined to this programm.
 
 
 };

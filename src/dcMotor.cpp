@@ -39,6 +39,9 @@ void dcMotor::draw()
         ofSetColor(100,100,255);
         ofRectRounded(thisPositionX,thisPositionY+rectHeight+10,rectWidth,rectWidth,rectRoundRadius);
     }
+    //draw name
+    ofSetColor(48,222,242);
+    ofDrawBitmapString(thisName,thisPositionX,thisPositionY+rectWidth+rectHeight+25);
 }
 void dcMotor::setSpeed(float theValue)
 {

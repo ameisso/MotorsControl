@@ -5,12 +5,12 @@
 	</osc>
 	<dcMotor>
 		<motor id="1">
-				<name>MoteurThule1</name>
+				<name>T1</name>
 				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
 				<sendPort>12000</sendPort><!--port d'envoi -->
 		</motor>
 		<motor id="2">
-				<name>MoteurThule2</name>
+				<name>T2</name>
 				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
 				<sendPort>12000</sendPort><!--port d'envoi -->
 		</motor>

@@ -10,7 +10,7 @@ stepperMotor::stepperMotor(int theNumber,string name,int positionX,int positionY
     nbSteps=theNbSteps;
     currentPosition=0;
     oscSender.setup(sendIp,sendPort);
-    cout<<"Stepper : '"<<thisName<<"' @:"<<sendIp<<":"<<ofToString(sendPort)<<"nbSteps:"<<nbSteps<<endl;
+    cout<<"Stepper : '"<<thisName<<"' @:"<<sendIp<<":"<<ofToString(sendPort)<<" nbSteps="<<nbSteps<<endl;
 }
 void stepperMotor::stepTo(int position)
 {
@@ -30,6 +30,7 @@ void stepperMotor::draw()
     int endY=thisPositionY+thisRadius*sin(theta*PI/180);
     ofLine(thisPositionX,thisPositionY,endX, endY);
     ofDrawBitmapString(ofToString(currentPosition),endX+5,endY+5);
+    ofDrawBitmapString(thisName,thisPositionX-thisRadius+20,thisPositionY+thisRadius+15);
 }
 void stepperMotor::checkMousePressed(int mouseX,int mouseY)
 {

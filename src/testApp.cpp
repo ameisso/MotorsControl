@@ -23,15 +23,17 @@ for (int i=0;i<nbStepperMotor;i++){
 }*/
 //--------------------------------------------------------------
 void testApp::update(){
-
+wrongMess="";
+receiveOscMessage();
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
     ofBackground(0);
-
-    //frameRate
-    ofDrawBitmapString(ofToString(ofGetFrameRate())+" fps", 20, ofGetWindowHeight() - 10);
+    ofFill();
+    ofRect(0,0,ofGetWindowWidth(),20);
+    ofSetColor(0);
+    ofDrawBitmapString("Listenning on port:"+ofToString(oscReceivePort)+" @"+ofToString(ofGetFrameRate())+" fps "+wrongMess, 10,14 );
     //dc motors
     for(vector< ofPtr<dcMotor> >::iterator it = theDcMotors.begin(); it != theDcMotors.end(); ++it)
             (*it)->draw();
@@ -100,7 +102,7 @@ void testApp::readXmlSetup()
     oscReceivePort=configFile.getIntValue("receivePort");
     //cout<<"receivePort :"<<oscReceivePort<<endl;
     configFile.setTo("../dcMotor"); // go up and then down
-    int nbDcMotors=configFile.getNumChildren();
+    nbDcMotors=configFile.getNumChildren();
     //cout<<"NB dcMotors : "<<nbDcMotors<<endl;
     for(int i=0; i<nbDcMotors; i++)
     {
@@ -110,7 +112,7 @@ void testApp::readXmlSetup()
         theDcMotors.push_back(ofPtr<dcMotor> (new dcMotor(i,name,30+30*i,30,sendIp,sendPort)));
     }
     configFile.setTo("../stepperMotor");
-    int nbStepperMotor=configFile.getNumChildren();
+    nbStepperMotor=configFile.getNumChildren();
     //cout<<"NB dcMotors : "<<nbDcMotors<<endl;
     for(int i=0; i<nbStepperMotor; i++)
     {
@@ -130,16 +132,34 @@ void testApp::receiveOscMessage(){
  while(thisOscReceiver.hasWaitingMessages())
     {
         thisOscReceiver.getNextMessage(&thisOscReceivedMessage);
+
         for(int i = 0; i < thisOscReceivedMessage.getNumArgs(); i++)
         {
-            if(thisOscReceivedMessage.getAddress()=="/ECHO")
+            //cout<<"Received "<<thisOscReceivedMessage.getArgAsFloat(0)<<"on"<<thisOscReceivedMessage.getAddress()<<endl;
+            for (int i=0; i<nbDcMotors;i++)
             {
-                float echoTime=ofGetElapsedTimef()-thisOscReceivedMessage.getArgAsFloat(0);
-                int echoRefNumber=thisOscReceivedMessage.getArgAsInt32(1);
-                echoPointedAddress=thisOscReceivedMessage.getArgAsString(2);
-                echoBuffer=" Echo from["+ofToString(echoRefNumber)+"]"+"in "+ofToString(echoTime)+"s";
-                cout<<"echo received in "<<echoTime<<"s from "<<echoRefNumber<<endl;
-                //cout<<"SendedFrom :"<<echoPointedAddress<<endl;
+                if(thisOscReceivedMessage.getAddress()=="M"+ofToString(i))
+                {
+                    float value=thisOscReceivedMessage.getArgAsFloat(0);
+                    theDcMotors[i]->setSpeed(value);
+                }
+                else if(thisOscReceivedMessage.getAddress()=="masterM"+ofToString(i))
+                {
+                    float value=thisOscReceivedMessage.getArgAsFloat(0);
+                    if (value==0.0)
+                    {
+                       theDcMotors[i]->setOnMaster(false);
+                    }
+                    else
+                    {
+                        theDcMotors[i]->setOnMaster(true);
+                    }
+
+                }
+                else
+                {
+                  wrongMess="!!!received "+ofToString(thisOscReceivedMessage.getArgAsFloat(0))+"on"+thisOscReceivedMessage.getAddress();
+                }
 
             }
         }
