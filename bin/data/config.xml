@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<root>
+	<osc>
+		<receivePort>8000</receivePort><!--port de reception -->
+	</osc>
+	<dcMotor>
+		<motor id="1">
+				<name>MoteurThule1</name>
+				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
+				<sendPort>12000</sendPort><!--port d'envoi -->
+		</motor>
+		<motor id="2">
+				<name>MoteurThule2</name>
+				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
+				<sendPort>12000</sendPort><!--port d'envoi -->
+		</motor>
+	</dcMotor>
+	<stepperMotor>
+		<stepper id="1">
+			<name>Laser1</name>
+			<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
+			<sendPort>12000</sendPort><!--port d'envoi -->
+			<nbSteps>48</nbSteps>
+		</stepper>
+		<stepper id="2">
+			<name>Laser1</name>
+			<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
+			<sendPort>12000</sendPort><!--port d'envoi -->
+			<nbSteps>48</nbSteps>
+		</stepper>
+	</stepperMotor>
+	<memory>
+	
+	</memory>
+</root>
