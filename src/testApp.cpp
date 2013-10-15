@@ -7,6 +7,8 @@ OscCommands:
 - Memory Rec : /2/recMemory{Memory Number}
 */
 
+//TODO : show msg received if no config file found
+
 #include "testApp.h"
 #include "ofxOsc.h"
 
@@ -45,19 +47,25 @@ void testApp::draw(){
     ofFill();
     ofRect(0,0,ofGetWindowWidth(),20);
     ofSetColor(0);
-    ofDrawBitmapString("Listenning on port:"+ofToString(oscReceivePort)+wrongMess, 10,14 );
+    string buffer="Listenning on port:"+ofToString(oscReceivePort)+wrongMess;
+    if(configFileFound==false)
+    {
+        ofSetColor(255);
+        buffer= "no config file found, it should be in /data/config.xml -->"+wrongMess;
+    }
+    ofDrawBitmapString(buffer, 10,14 );
     //Frame Activity square
     ofSetColor(232,210,42);
-    if (frameActivitySqaures==true)
+    if (frameActivitySquares==true)
     {
-        frameActivitySqaures=false;
+        frameActivitySquares=false;
         ofRect(ofGetWidth()-30,0,10,10);
         ofRect(ofGetWidth()-20,10,10,10);
         ofRect(ofGetWidth()-10,0,10,10);
     }
     else
     {
-        frameActivitySqaures=true;
+        frameActivitySquares=true;
         ofRect(ofGetWidth()-30,10,10,10);
         ofRect(ofGetWidth()-20,0,10,10);
         ofRect(ofGetWidth()-10,10,10,10);
@@ -141,10 +149,28 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 }
 void testApp::readXmlSetup()
 {
-    //TODO block the process if the file is not there or is corrupted....
-
-    //Read "senders.xml" file and create the senders list
     ofFile file;
+    //TODO block the process if the file is not there or is corrupted....
+    //Test the file existance throw an error if not
+    if(file.doesFileExist("config.xml",true)==true)
+    {
+        cout<<"config.xml found"<<endl;
+        cout<<"*****************************************************************"<<endl<<endl;
+        configFileFound=true;
+    }
+    else
+    {
+        cout<<"no config.xml file, default receive port : 8000"<<endl;
+        nbDcMotors=0;
+        nbStepperMotor=0;
+        nbMemory=0;
+        //oscReceivePort=8000;
+        //thisOscReceiver.setup(oscReceivePort);
+        configFileFound=false;
+        return;
+    }
+    //Read "senders.xml" file and create the senders list
+
     file.open("config.xml");
     ofBuffer buffer=file.readToBuffer();
     ofXml configFile;
@@ -162,6 +188,7 @@ void testApp::readXmlSetup()
         string sendIp=configFile.getValue("motor["+ofToString(i)+"]/sendIp");
         theDcMotors.push_back(ofPtr<dcMotor> (new dcMotor(i,name,30+30*i,30,sendIp,sendPort)));
     }
+    cout<<endl<<"*****************************************************************"<<endl<<endl;
     configFile.setTo("../stepperMotor");
     nbStepperMotor=configFile.getNumChildren();
     //cout<<"NB dcMotors : "<<nbDcMotors<<endl;
@@ -177,6 +204,7 @@ void testApp::readXmlSetup()
     file.close();
     buffer.clear();
     configFile.clear();
+    cout<<endl<<"*****************************************************************"<<endl;
     cout<<"XML files read, objects created"<<endl << endl;
 }
 void testApp::receiveOscMessage(){
@@ -186,7 +214,7 @@ void testApp::receiveOscMessage(){
         messageReceived=true;
         for(int i = 0; i < thisOscReceivedMessage.getNumArgs(); i++)
         {
-            //cout<<"Received "<<thisOscReceivedMessage.getArgAsFloat(0)<<" on"<<thisOscReceivedMessage.getAddress()<<endl;
+            cout<<"Received "<<thisOscReceivedMessage.getArgAsFloat(0)<<" on"<<thisOscReceivedMessage.getAddress()<<endl;
             for (int i=0; i<nbDcMotors;i++)
             {
                 if(thisOscReceivedMessage.getAddress()=="/1/M"+ofToString(i))
@@ -212,6 +240,7 @@ void testApp::receiveOscMessage(){
                 {
                   wrongMess="!!!received "+ofToString(thisOscReceivedMessage.getArgAsFloat(0))+"on"+thisOscReceivedMessage.getAddress();
                 }
+
 
             }
             for (int i=0;i<nbStepperMotor;i++)

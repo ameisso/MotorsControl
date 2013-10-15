@@ -24,6 +24,7 @@ class testApp : public ofBaseApp{
         void receiveOscMessage();
         void oscSendedMessageStatus(); //set true if a message was sended,
     private :
+        bool configFileFound;//bool tested in draw to write "file no found"
         int nbDcMotors;
         int nbStepperMotor;
         int nbMemory;
@@ -31,7 +32,7 @@ class testApp : public ofBaseApp{
         //in order to show an "activity square in the top right corner
         bool messageReceived;
         bool messageSended;
-        bool frameActivitySqaures;
+        bool frameActivitySquares;
 		//void createMotors();
 		//void createSteppers();
         vector< ofPtr<dcMotor> > theDcMotors;
