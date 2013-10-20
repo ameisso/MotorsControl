@@ -197,7 +197,7 @@ void testApp::readXmlSetup()
         configFileFound=false;
         return;
     }
-    //Read "config.xml" file
+
     file.open("config.xml");
     ofBuffer buffer=file.readToBuffer();
     ofXml configFile;
@@ -265,7 +265,8 @@ void testApp::receiveOscMessage()
                         }
                     }
                 }
-            for (int i=0; i<nbDcMotors; i++)
+            for (int i=0; i<nbDcMotors;i++)
+
             {
                 if(thisOscReceivedMessage.getAddress()=="/1/M"+ofToString(i))
                 {

@@ -26,6 +26,7 @@ class testApp : public ofBaseApp{
         void emergencyStop();//function that stops all the dcmotors  (panicButton)
         void reloadXml();//function that stops all the movements and memories, destroy all the object and read the xmls again
     private :
+        bool configFileFound;//bool tested in draw to write "file no found"
         int nbDcMotors;
         int nbStepperMotor;
         int nbMemory;
@@ -33,8 +34,6 @@ class testApp : public ofBaseApp{
         //in order to show an "activity square in the top right corner
         bool messageReceived;
         bool messageSended;
-        bool frameActivitySqaures;
-        bool configFileFound;
         bool frameActivitySquares;
 		//void createMotors();
 		//void createSteppers();
