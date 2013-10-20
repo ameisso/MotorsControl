@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <root>
 	<osc>
-		<receivePort>8011</receivePort><!--port de reception -->
+		<receivePort>8010</receivePort><!--port de reception -->
 	</osc>
 	<dcMotor>
 		<motor id="0">

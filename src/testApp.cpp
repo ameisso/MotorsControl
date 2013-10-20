@@ -243,29 +243,26 @@ void testApp::receiveOscMessage()
     {
         thisOscReceiver.getNextMessage(&thisOscReceivedMessage);
         messageReceived=true;
+        if(thisOscReceivedMessage.getAddress()=="/emergencyStop")
+        {
+            cout<<"received an emergency stop from OSC"<<endl;
+            emergencyStop();
+        }
         for(int i = 0; i < thisOscReceivedMessage.getNumArgs(); i++)
         {
             cout<<"Received "<<thisOscReceivedMessage.getArgAsFloat(0)<<" on"<<thisOscReceivedMessage.getAddress()<<endl;
-            if(thisOscReceivedMessage.getAddress()=="/emerencyStop")
-                {
-                    float value=thisOscReceivedMessage.getArgAsFloat(0);
-                    if (value==1.0)
-                    {
-                        emergencyStop();
-                    }
-                }
             if(thisOscReceivedMessage.getAddress()=="/1/Master")
+            {
+                float value=thisOscReceivedMessage.getArgAsFloat(0);
+                for(vector< ofPtr<dcMotor> >::iterator it = theDcMotors.begin(); it != theDcMotors.end(); ++it)
                 {
-                    float value=thisOscReceivedMessage.getArgAsFloat(0);
-                    for(vector< ofPtr<dcMotor> >::iterator it = theDcMotors.begin(); it != theDcMotors.end(); ++it)
+                    if((*it)->getOnMaster()==true)
                     {
-                        if((*it)->getOnMaster()==true)
-                        {
-                            (*it)->setSpeed(value);
-                        }
+                        (*it)->setSpeed(value);
                     }
                 }
-            for (int i=0; i<nbDcMotors;i++)
+            }
+            for (int i=0; i<nbDcMotors; i++)
 
             {
                 if(thisOscReceivedMessage.getAddress()=="/1/M"+ofToString(i))
@@ -278,7 +275,7 @@ void testApp::receiveOscMessage()
                     float value=thisOscReceivedMessage.getArgAsFloat(0);
                     if (value==0.0)
                     {
-                    theDcMotors[i]->setSpeed(0);
+                        theDcMotors[i]->setSpeed(0);
                     }
                 }
                 else if(thisOscReceivedMessage.getAddress()=="/1/Master"+ofToString(i))
@@ -354,6 +351,6 @@ void testApp::reloadXml()
     {
         theMemories.pop_back();
     }
-readXmlSetup();
+    readXmlSetup();
 }
 
