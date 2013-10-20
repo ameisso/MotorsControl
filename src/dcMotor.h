@@ -6,8 +6,8 @@
 class dcMotor
 {
     public:
-        dcMotor(int theNumber,string name,int positionX,int positionY, string sendIP, int sendPort);
-        virtual ~dcMotor();
+        dcMotor(int theNumber,string name,string address,int positionX,int positionY, string sendIP, int sendPort);
+        ~dcMotor();
         void draw();
         void setSpeed(float theValue);
         void setOnMaster(bool boolean);
@@ -19,7 +19,7 @@ class dcMotor
         void checkMousePressed(int mouseX,int mouseY);
         bool getControlChange();
         void setControlChange(bool boolean);
-        void sendOneFloat(string address,float value);
+        void sendOneFloat(float value);
         string getName();
         bool getMessageSended();//true if messageSended
         void setMessageSended(bool boolean);
@@ -42,6 +42,7 @@ class dcMotor
         ofxOscMessage oscMessage;
         int oscSendPort ;
         string oscSendIP;
+        string theOscAddress;
         bool messageSended;//true if sendOneFloat is called
 };
 

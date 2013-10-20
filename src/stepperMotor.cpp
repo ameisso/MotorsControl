@@ -1,6 +1,6 @@
 #include "stepperMotor.h"
 
-stepperMotor::stepperMotor(int theNumber,string name,int positionX,int positionY, string sendIp,int sendPort,int theNbSteps)
+stepperMotor::stepperMotor(int theNumber,string name,string address,int positionX,int positionY, string sendIp,int sendPort,int theNbSteps)
 {
     thisRefNumber=theNumber;
     thisName=name;
@@ -9,6 +9,7 @@ stepperMotor::stepperMotor(int theNumber,string name,int positionX,int positionY
     thisRadius=50;
     nbSteps=theNbSteps;
     currentPosition=0;
+    theOscAddress=address;
     oscSender.setup(sendIp,sendPort);
     cout<<"Stepper : '"<<thisName<<"' @:"<<sendIp<<":"<<ofToString(sendPort)<<" nbSteps="<<nbSteps<<endl;
 }
@@ -17,7 +18,7 @@ void stepperMotor::stepTo(int position)
     currentPosition=position;
     controlChanged=true;
     //TODO : send the new position over OSC
-    sendOneFloat("/4/S"+ofToString(thisRefNumber),position);
+    sendOneFloat(position);
 }
 void stepperMotor::draw()
 {
@@ -86,13 +87,13 @@ stepperMotor::~stepperMotor()
 {
     //dtor
 }
-void stepperMotor::sendOneFloat(string address,float value)
+void stepperMotor::sendOneFloat(float value)
 {
     ofxOscMessage msgToSend = ofxOscMessage();
-    msgToSend.setAddress(address);
+    msgToSend.setAddress(theOscAddress);
     msgToSend.addFloatArg(value);
     oscSender.sendMessage(msgToSend);
-    //cout<<"Sended : "<<value<<" @"<< address<< " on :"<<oscSendIP<<":"<<oscSendPort<<endl;
+    //cout<<"Sended : "<<value<<" @"<< theOscAddress<< " on :"<<oscSendIP<<":"<<oscSendPort<<endl;
     messageSended=true;
 }
 void stepperMotor::setMessageSended(bool boolean)

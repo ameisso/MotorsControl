@@ -5,7 +5,7 @@
 class stepperMotor
 {
     public:
-        stepperMotor(int theNumber,string name,int positionX,int positionY, string sendIp,int sendPort,int theNbSteps);
+        stepperMotor(int theNumber,string name,string address,int positionX,int positionY, string sendIp,int sendPort,int theNbSteps);
         virtual ~stepperMotor();
         void stepTo(int position);
         void draw();
@@ -15,7 +15,7 @@ class stepperMotor
         int getRefNumber();
         int getCurrentPosition();
         string getName();
-        void sendOneFloat(string address,float value);
+        void sendOneFloat(float value);
         bool getMessageSended();//true if messageSended
         void setMessageSended(bool boolean);
     protected:
@@ -33,6 +33,7 @@ class stepperMotor
         ofxOscMessage oscMessage;
         int oscSendPort ;
         string oscSendIP;
+        string theOscAddress;
         bool messageSended;//true if sendOneFloat is called
 };
 #endif // STEPPERMOTOR_H

@@ -1,19 +1,26 @@
 #include "dcMotor.h"
 
 
-dcMotor::dcMotor(int theNumber,string name,int positionX,int positionY,string sendIP, int sendPort)
+dcMotor::dcMotor(int theNumber,string name,string address,int positionX,int positionY,string sendIP, int sendPort)
 {
     thisRefNumber=theNumber;
     thisName=name;
     thisPositionX=positionX;
     thisPositionY=positionY;
     cursorPosition=0;
+    speedValue=0;
     onMaster=false;
     controlChanged=false;
     oscSendIP=sendIP;
     oscSendPort=sendPort;
     oscSender.setup(sendIP,sendPort);
+    theOscAddress=address;
     cout<<"MOTOR : '"<<thisName<<"' @:"<<sendIP<<":"<<ofToString(sendPort)<<endl;
+}
+dcMotor::~dcMotor()
+{
+    cout<<" Destroy MOTOR : '"<<thisName<<"' @:"<<oscSendIP<<":"<<ofToString(oscSendPort)<<endl;
+    setSpeed(0);
 }
 void dcMotor::draw()
 {
@@ -41,16 +48,32 @@ void dcMotor::draw()
         ofSetColor(100,100,255);
         ofRectRounded(thisPositionX,thisPositionY+rectHeight+10,rectWidth,rectWidth,rectRoundRadius);
     }
-    //draw name
+//draw stop button
+    if (speedValue==0.0)
+    {
+        ofFill();
+        ofSetColor(200,0,0);
+        ofRectRounded(thisPositionX,thisPositionY+rectHeight+10+rectWidth+10,rectWidth,rectWidth,rectRoundRadius);
+    }
+    else
+    {
+        ofNoFill();
+        ofSetColor(100,100,255);
+        ofRectRounded(thisPositionX,thisPositionY+rectHeight+10+rectWidth+10,rectWidth,rectWidth,rectRoundRadius);
+    }
+
+//draw name
     ofSetColor(48,222,242);
-    ofDrawBitmapString(thisName,thisPositionX,thisPositionY+rectWidth+rectHeight+25);
+    ofDrawBitmapString(thisName,thisPositionX,thisPositionY+2*rectWidth+rectHeight+35);
 }
 void dcMotor::setSpeed(float theValue)
 {
     cursorPosition=theValue;
     setControlChange(true);
+    speedValue=theValue;
     //TODO send over OSC
-    sendOneFloat("/1/M"+ofToString(thisRefNumber),theValue);
+    float sentValue=ofMap(theValue,-100,100,-1,1);
+    sendOneFloat(sentValue);
 }
 void dcMotor::setOnMaster(bool boolean)
 {
@@ -82,6 +105,10 @@ void dcMotor::checkMousePressed(int mouseX,int mouseY)
     {
         setOnMaster(!onMaster);
     }
+    if((mouseX>thisPositionX) & (mouseX<(thisPositionX+rectWidth))& (mouseY>thisPositionY+rectHeight+10+rectWidth+10) & (mouseY<thisPositionY+rectHeight+10+rectWidth+10+rectWidth))
+    {
+        setSpeed(0);
+    }
 
 }
 float dcMotor::getSpeedValue()
@@ -105,17 +132,13 @@ string dcMotor::getName()
 {
     return thisName;
 }
-dcMotor::~dcMotor()
-{
-    //dtor
-}
-void dcMotor::sendOneFloat(string address,float value)
+void dcMotor::sendOneFloat(float value)
 {
     ofxOscMessage msgToSend = ofxOscMessage();
-    msgToSend.setAddress(address);
+    msgToSend.setAddress(theOscAddress);
     msgToSend.addFloatArg(value);
     oscSender.sendMessage(msgToSend);
-    //cout<<"Sended : "<<value<<" @"<< address<< " on :"<<oscSendIP<<":"<<oscSendPort<<endl;
+    //cout<<"Sended : "<<value<<" @"<< theOscAddress<< " on :"<<oscSendIP<<":"<<oscSendPort<<endl;
     messageSended=true;
 }
 void dcMotor::setMessageSended(bool boolean)

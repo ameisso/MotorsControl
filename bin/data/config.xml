@@ -1,114 +1,68 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <root>
 	<osc>
-		<receivePort>8000</receivePort><!--port de reception -->
+		<receivePort>8011</receivePort><!--port de reception -->
 	</osc>
 	<dcMotor>
-		<!--Moteurs thule
-		
-		
-		
-		-->
-		<motor id="1">
+		<motor id="0">
 				<name>T1</name>
-				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-				<sendPort>12000</sendPort><!--port d'envoi -->
+				<sendIp>192.168.1.113</sendIp><!--ip d'envoi pour le feedback -->
+				<sendPort>8501</sendPort><!--port d'envoi -->
+				<address>/tulle/0</address>
+		</motor>
+		<motor id="1">
+				<name>T2</name>
+				<sendIp>192.168.1.113</sendIp><!--ip d'envoi pour le feedback -->
+				<sendPort>8501</sendPort><!--port d'envoi -->
+				<address>/tulle/1</address>
 		</motor>
 		<motor id="2">
-				<name>T2</name>
-				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-				<sendPort>12000</sendPort><!--port d'envoi -->
+				<name>T3</name>
+				<sendIp>192.168.1.113</sendIp><!--ip d'envoi pour le feedback -->
+				<sendPort>8501</sendPort><!--port d'envoi -->
+				<address>/tulle/2</address>
 		</motor>
 		<motor id="3">
-				<name>T3</name>
-				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-				<sendPort>12000</sendPort><!--port d'envoi -->
+				<name>T4</name>
+				<sendIp>192.168.1.113</sendIp><!--ip d'envoi pour le feedback -->
+				<sendPort>8501</sendPort><!--port d'envoi -->
+				<address>/tulle/3</address>
 		</motor>
 		<motor id="4">
-				<name>T4</name>
-				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-				<sendPort>12000</sendPort><!--port d'envoi -->
-		</motor>
-		<motor id="5">
-				<name>T5</name>
-				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-				<sendPort>12000</sendPort><!--port d'envoi -->
-		</motor>
-		<motor id="6">
-				<name>T6</name>
-				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-				<sendPort>12000</sendPort><!--port d'envoi -->
-		</motor>
-		<motor id="7">
-				<name>T7</name>
-				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-				<sendPort>12000</sendPort><!--port d'envoi -->
-		</motor>
-		<motor id="8">
-				<name>T8</name>
-				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-				<sendPort>12000</sendPort><!--port d'envoi -->
-		</motor>
-		<!--Moteurs Panneaux
-		
-		
-		
-		-->
-		<motor id="9">
-				<name>PJ1</name>
-				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-				<sendPort>12000</sendPort><!--port d'envoi -->
-		</motor>
-		<motor id="10">
-				<name>PJ2</name>
-				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-				<sendPort>12000</sendPort><!--port d'envoi -->
-		</motor>
-		<motor id="11">
-				<name>PJ3</name>
-				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-				<sendPort>12000</sendPort><!--port d'envoi -->
-		</motor>
-		<motor id="12">
-				<name>PC1</name>
-				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-				<sendPort>12000</sendPort><!--port d'envoi -->
-		</motor>
-		<motor id="13">
-				<name>PC2</name>
-				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-				<sendPort>12000</sendPort><!--port d'envoi -->
-		</motor>
-		<motor id="14">
-				<name>PC3</name>
-				<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-				<sendPort>12000</sendPort><!--port d'envoi -->
+				<name>P1</name>
+				<sendIp>192.168.1.112</sendIp><!--ip d'envoi pour le feedback -->
+				<sendPort>8500</sendPort><!--port d'envoi -->
+				<address>/motor</address>
 		</motor>
 	</dcMotor>
 	<stepperMotor>
-		<stepper id="1">
-			<name>Laser1</name>
-			<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-			<sendPort>12000</sendPort><!--port d'envoi -->
+		<stepper id="0">
+			<name>stepper1</name>
+			<sendIp>192.168.1.112</sendIp>
+			<sendPort>8500</sendPort>
 			<nbSteps>48</nbSteps>
+			<address>/stepper</address>
+		</stepper>
+		<stepper id="1">
+			<name>stepper1</name>
+			<sendIp>192.168.1.12</sendIp>
+			<sendPort>8000</sendPort>
+			<nbSteps>48</nbSteps>
+			<address>/stepper/1/</address>
 		</stepper>
 		<stepper id="2">
-			<name>Laser1</name>
-			<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-			<sendPort>12000</sendPort><!--port d'envoi -->
+			<name>stepper1</name>
+			<sendIp>192.168.1.12</sendIp>
+			<sendPort>8000</sendPort>
 			<nbSteps>48</nbSteps>
+			<address>/stepper/2/</address>
 		</stepper>
 		<stepper id="3">
-			<name>Scene Jardin</name>
-			<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-			<sendPort>12000</sendPort><!--port d'envoi -->
+			<name>stepper1</name>
+			<sendIp>192.168.1.12</sendIp>
+			<sendPort>8000</sendPort>
 			<nbSteps>48</nbSteps>
-		</stepper>
-		<stepper id="4">
-			<name>Scene Cour</name>
-			<sendIp>10.42.0.84</sendIp><!--ip d'envoi pour le feedback -->
-			<sendPort>12000</sendPort><!--port d'envoi -->
-			<nbSteps>48</nbSteps>
+			<address>/stepper/3/</address>
 		</stepper>
 	</stepperMotor>
 	<memory>

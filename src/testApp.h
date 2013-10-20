@@ -23,6 +23,8 @@ class testApp : public ofBaseApp{
         void readXmlSetup();
         void receiveOscMessage();
         void oscSendedMessageStatus(); //set true if a message was sended,
+        void emergencyStop();//function that stops all the dcmotors  (panicButton)
+        void reloadXml();//function that stops all the movements and memories, destroy all the object and read the xmls again
     private :
         int nbDcMotors;
         int nbStepperMotor;
@@ -32,11 +34,13 @@ class testApp : public ofBaseApp{
         bool messageReceived;
         bool messageSended;
         bool frameActivitySqaures;
+        bool configFileFound;
+        bool frameActivitySquares;
 		//void createMotors();
 		//void createSteppers();
         vector< ofPtr<dcMotor> > theDcMotors;
         vector< ofPtr<stepperMotor> > theSteppers;
-
+        vector< ofPtr<memory> > theMemories;
         //OSC
         int oscSendPort;
         int oscReceivePort;
@@ -44,6 +48,4 @@ class testApp : public ofBaseApp{
         ofxOscReceiver thisOscReceiver;
         ofxOscMessage thisOscReceivedMessage;
         string wrongMess;//String that contain an osc message if it wasn't destined to this programm.
-
-
 };
