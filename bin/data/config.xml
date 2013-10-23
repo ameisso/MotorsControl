@@ -66,6 +66,15 @@
 		</stepper>
 	</stepperMotor>
 	<memory>
-	
+		<duration>60</duration>
+		<mem id="0">
+			<name>memoire1</name>
+		</mem>
+		<mem id="1">
+			<name>memoire2</name>
+		</mem>		
+		<mem id="2">
+			<name>memoire3</name>
+		</mem>
 	</memory>
 </root>

@@ -22,45 +22,27 @@ key pressed :
 void testApp::setup()
 {
     ofSetFrameRate(15);
-    cout<<"***********************ControlMotorProgram*********************************"<<endl;
-    readXmlSetup();
-    thisOscReceiver.setup(oscReceivePort);
-    ofSetWindowTitle("Remote");
-
-    //Timeline
     timeline.setup();
+    cout<<"***********************ControlMotorProgram******************************"<<endl;
+    readXmlSetup();
     timeline.setOffset(ofVec2f(0,20));
     timeline.setDurationInSeconds(60); //TODO
     timeline.setLoopType(OF_LOOP_NORMAL);
-
-    for(int i = 0; i < 2; i++)
-    {
-        timeline.addPage("Page "+ofToString(i));
-        timeline.addCurves("test");
-    }
-
-//nbDcMotors=14;
-//nbStepperMotor=4;
-//nbMemory=2;
-//createMotors();
-//createSteppers();
+    hideTimeline=false;
+    thisOscReceiver.setup(oscReceivePort);
+    ofSetWindowTitle("Remote");
 }
-/*void testApp::createMotors(){
-for (int i=0;i<nbDcMotors;i++){
-    theDcMotors.push_back(ofPtr<dcMotor> (new dcMotor(i,"Motor"+ofToString(i),30+30*i,30)));
-}
-}*/
-/*void testApp::createSteppers(){
-for (int i=0;i<nbStepperMotor;i++){
-    theSteppers.push_back(ofPtr<stepperMotor> (new stepperMotor(i,"Stepper"+ofToString(i),nbDcMotors*30+80+120*i,100,48)));
-}
-}*/
 //--------------------------------------------------------------
 void testApp::update()
 {
     wrongMess="";
     messageReceived=false;//if no message received, set to false
-    receiveOscMessage();
+    receiveOscMessage();//check for new osc message
+    //dc motors
+    for(vector< ofPtr<dcMotor> >::iterator it = theDcMotors.begin(); it != theDcMotors.end(); ++it)
+    {
+        (*it)->setSpeed(timeline.getValue((*it)->getName()));
+    }
 }
 
 //--------------------------------------------------------------
@@ -123,8 +105,11 @@ void testApp::draw()
     //steppers
     for(vector< ofPtr<stepperMotor> >::iterator it = theSteppers.begin(); it != theSteppers.end(); ++it)
         (*it)->draw();
+    if(hideTimeline==false)
+    {
+        timeline.draw();
+    }
 
-    timeline.draw();
 }
 
 //--------------------------------------------------------------
@@ -138,6 +123,10 @@ void testApp::keyPressed(int key)
     if (key==0x72|| key==0x52)//R or r
     {
         reloadXml();
+    }
+    if(key==0x48|| key==0x68)//h or H toggle the timeline
+    {
+        hideTimeline=!hideTimeline;
     }
 }
 
@@ -246,6 +235,28 @@ void testApp::readXmlSetup()
         theSteppers.push_back(ofPtr<stepperMotor> (new stepperMotor(i,name,address,nbDcMotors*30+80+120*i,100,sendIp,sendPort,nbSteps)));
     }
     //TODO : Read Memory informations.
+    configFile.setTo("../memory");
+    duration=configFile.getIntValue("/duration");
+    nbMemory=configFile.getNumChildren();
+
+    cout<<"Memory Duration : "<<duration<<endl;
+    cout<<"NB Memory : "<<nbMemory<<endl;
+    for(int i=0; i<nbMemory; i++)
+    {
+        string name=configFile.getValue("mem["+ofToString(i)+"]/name");
+        timeline.addPage(name);
+        if(i<nbMemory-1)
+        {
+            for(int i=0; i<nbDcMotors; i++)
+            {
+                timeline.addCurves(theDcMotors[i]->getName(), ofRange(-100, 100));
+            }
+            for(int i=0; i<nbStepperMotor; i++)
+            {
+                timeline.addCurves(theSteppers[i]->getName(), ofRange(0, 48));
+            }
+        }
+    }
     file.close();
     buffer.clear();
     configFile.clear();

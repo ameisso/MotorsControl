@@ -156,9 +156,12 @@ obj/linux64/Debug/src/stepperMotor.o: src/stepperMotor.cpp \
  ../../../libs/openFrameworks/sound/ofSoundPlayer.h \
  ../../../libs/openFrameworks/sound/ofBaseSoundPlayer.h \
  ../../../libs/openFrameworks/sound/ofOpenALSoundPlayer.h \
- ../../../libs/kiss/include/kiss_fft.h \
- ../../../libs/kiss/include/kiss_fftr.h \
- ../../../libs/kiss/include/kiss_fft.h \
+ ../../../addons/ofxTimeline/libs/openal/include/AL/al.h \
+ ../../../addons/ofxTimeline/libs/openal/include/AL/alc.h \
+ ../../../addons/ofxTimeline/libs/kiss/include/kiss_fft.h \
+ ../../../addons/ofxTimeline/libs/kiss/include/kiss_fftr.h \
+ ../../../addons/ofxTimeline/libs/kiss/include/kiss_fft.h \
+ ../../../addons/ofxTimeline/libs/sndfile/include/sndfile.h \
  ../../../libs/openFrameworks/video/ofVideoGrabber.h \
  ../../../libs/openFrameworks/video/ofGstVideoGrabber.h \
  ../../../libs/openFrameworks/video/ofGstUtils.h \
@@ -648,11 +651,17 @@ src/stepperMotor.h:
 
 ../../../libs/openFrameworks/sound/ofOpenALSoundPlayer.h:
 
-../../../libs/kiss/include/kiss_fft.h:
+../../../addons/ofxTimeline/libs/openal/include/AL/al.h:
 
-../../../libs/kiss/include/kiss_fftr.h:
+../../../addons/ofxTimeline/libs/openal/include/AL/alc.h:
 
-../../../libs/kiss/include/kiss_fft.h:
+../../../addons/ofxTimeline/libs/kiss/include/kiss_fft.h:
+
+../../../addons/ofxTimeline/libs/kiss/include/kiss_fftr.h:
+
+../../../addons/ofxTimeline/libs/kiss/include/kiss_fft.h:
+
+../../../addons/ofxTimeline/libs/sndfile/include/sndfile.h:
 
 ../../../libs/openFrameworks/video/ofVideoGrabber.h:
 

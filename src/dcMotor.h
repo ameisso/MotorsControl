@@ -3,12 +3,15 @@
 #include "ofMain.h"
 #include "ofxOsc.h"
 
+
+
 class dcMotor
 {
     public:
         dcMotor(int theNumber,string name,string address,int positionX,int positionY, string sendIP, int sendPort);
         ~dcMotor();
         void draw();
+        void update();
         void setSpeed(float theValue);
         void setOnMaster(bool boolean);
         bool getOnMaster();

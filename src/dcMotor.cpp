@@ -71,7 +71,6 @@ void dcMotor::setSpeed(float theValue)
     cursorPosition=theValue;
     setControlChange(true);
     speedValue=theValue;
-    //TODO send over OSC
     float sentValue=ofMap(theValue,-100,100,-1,1);
     sendOneFloat(sentValue);
 }
@@ -148,4 +147,8 @@ void dcMotor::setMessageSended(bool boolean)
 bool dcMotor::getMessageSended()
 {
     return messageSended;
+}
+void dcMotor::update()
+{
+
 }

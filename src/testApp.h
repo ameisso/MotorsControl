@@ -49,7 +49,9 @@ class testApp : public ofBaseApp{
         ofxOscReceiver thisOscReceiver;
         ofxOscMessage thisOscReceivedMessage;
         string wrongMess;//String that contain an osc message if it wasn't destined to this programm.
-        
+
         //Timeline
         ofxTimeline timeline;
+        int duration;//duration of the loop
+        bool hideTimeline;//show or hide the timeline
 };

@@ -156,9 +156,12 @@ obj/linux64/Debug/src/main.o: src/main.cpp \
  ../../../libs/openFrameworks/sound/ofSoundPlayer.h \
  ../../../libs/openFrameworks/sound/ofBaseSoundPlayer.h \
  ../../../libs/openFrameworks/sound/ofOpenALSoundPlayer.h \
- ../../../libs/kiss/include/kiss_fft.h \
- ../../../libs/kiss/include/kiss_fftr.h \
- ../../../libs/kiss/include/kiss_fft.h \
+ ../../../addons/ofxTimeline/libs/openal/include/AL/al.h \
+ ../../../addons/ofxTimeline/libs/openal/include/AL/alc.h \
+ ../../../addons/ofxTimeline/libs/kiss/include/kiss_fft.h \
+ ../../../addons/ofxTimeline/libs/kiss/include/kiss_fftr.h \
+ ../../../addons/ofxTimeline/libs/kiss/include/kiss_fft.h \
+ ../../../addons/ofxTimeline/libs/sndfile/include/sndfile.h \
  ../../../libs/openFrameworks/video/ofVideoGrabber.h \
  ../../../libs/openFrameworks/video/ofGstVideoGrabber.h \
  ../../../libs/openFrameworks/video/ofGstUtils.h \
@@ -308,7 +311,53 @@ obj/linux64/Debug/src/main.o: src/main.cpp \
  ../../../libs/openFrameworks/video/ofVideoPlayer.h \
  ../../../libs/openFrameworks/video/ofGstVideoPlayer.h \
  ../../../libs/openFrameworks/3d/ofCamera.h \
- ../../../libs/openFrameworks/3d/ofEasyCam.h src/testApp.h src/dcMotor.h \
+ ../../../libs/openFrameworks/3d/ofEasyCam.h src/testApp.h \
+ ../../../addons/ofxTimeline/src/ofxTimeline.h \
+ ../../../addons/ofxRange/src/ofRange.h \
+ ../../../addons/ofxMSATimer/src/ofxMSATimer.h \
+ ../../../addons/ofxTimecode/src/ofxTimecode.h \
+ ../../../addons/ofxTimeline/src/ofxTLTrack.h \
+ ../../../addons/ofxXmlSettings/src/ofxXmlSettings.h \
+ ../../../addons/ofxXmlSettings/libs/tinyxml.h \
+ ../../../addons/ofxTween/src/ofxTween.h \
+ ../../../libs/poco/include/Poco/Delegate.h \
+ ../../../libs/poco/include/Poco/FunctionDelegate.h \
+ ../../../libs/poco/include/Poco/Expire.h \
+ ../../../addons/ofxTween/src/Easings/ofxEasing.h \
+ ../../../addons/ofxTween/src/Easings/ofxEasingBounce.h \
+ ../../../addons/ofxTween/src/Easings/ofxEasing.h \
+ ../../../addons/ofxTween/src/Easings/ofxEasingCubic.h \
+ ../../../addons/ofxTween/src/Easings/ofxEasingElastic.h \
+ ../../../addons/ofxTween/src/Easings/ofxEasingLinear.h \
+ ../../../addons/ofxTween/src/Easings/ofxEasingQuart.h \
+ ../../../addons/ofxTween/src/Easings/ofxEasingBack.h \
+ ../../../addons/ofxTween/src/Easings/ofxEasingCirc.h \
+ ../../../addons/ofxTween/src/Easings/ofxEasingExpo.h \
+ ../../../addons/ofxTween/src/Easings/ofxEasingQuad.h \
+ ../../../addons/ofxTween/src/Easings/ofxEasingQuint.h \
+ ../../../addons/ofxTween/src/Easings/ofxEasingSine.h \
+ ../../../addons/ofxTimeline/src/ofxTLEvents.h \
+ ../../../addons/ofxTimeline/src/ofxTLPage.h \
+ ../../../addons/ofxTimeline/src/ofxTLTrackHeader.h \
+ ../../../addons/ofxTextInputField/src/ofxTextInputField.h \
+ ../../../addons/ofxTextInputField/src/ofxTextInputFieldFontRenderer.h \
+ ../../../addons/ofxTimeline/src/ofxTLPageTabs.h \
+ ../../../addons/ofxTimeline/src/ofxTLZoomer.h \
+ ../../../addons/ofxTimeline/src/ofxTLTicker.h \
+ ../../../addons/ofxTimeline/src/ofxTLInOut.h \
+ ../../../addons/ofxTimeline/src/ofxTLCurves.h \
+ ../../../addons/ofxTimeline/src/ofxTLKeyframes.h \
+ ../../../addons/ofxTimeline/src/ofxTLBangs.h \
+ ../../../addons/ofxTimeline/src/ofxTLFlags.h \
+ ../../../addons/ofxTimeline/src/ofxTLSwitches.h \
+ ../../../addons/ofxTimeline/src/ofxTLColorTrack.h \
+ ../../../addons/ofxTimeline/src/ofxTLImageSequence.h \
+ ../../../addons/ofxTimeline/src/ofxTLImageSequenceFrame.h \
+ ../../../addons/ofxTimeline/src/ofxTLColors.h \
+ ../../../addons/ofxTimeline/src/ofxTLLFO.h \
+ ../../../addons/ofxTimeline/src/ofxTLVideoTrack.h \
+ ../../../addons/ofxTimeline/src/ofxTLVideoThumb.h \
+ ../../../addons/ofxTimeline/src/ofxTLImageTrack.h src/dcMotor.h \
  ../../../addons/ofxOsc/src/ofxOsc.h \
  ../../../addons/ofxOsc/src/ofxOscArg.h \
  ../../../addons/ofxOsc/src/ofxOscMessage.h \
@@ -647,11 +696,17 @@ obj/linux64/Debug/src/main.o: src/main.cpp \
 
 ../../../libs/openFrameworks/sound/ofOpenALSoundPlayer.h:
 
-../../../libs/kiss/include/kiss_fft.h:
+../../../addons/ofxTimeline/libs/openal/include/AL/al.h:
 
-../../../libs/kiss/include/kiss_fftr.h:
+../../../addons/ofxTimeline/libs/openal/include/AL/alc.h:
 
-../../../libs/kiss/include/kiss_fft.h:
+../../../addons/ofxTimeline/libs/kiss/include/kiss_fft.h:
+
+../../../addons/ofxTimeline/libs/kiss/include/kiss_fftr.h:
+
+../../../addons/ofxTimeline/libs/kiss/include/kiss_fft.h:
+
+../../../addons/ofxTimeline/libs/sndfile/include/sndfile.h:
 
 ../../../libs/openFrameworks/video/ofVideoGrabber.h:
 
@@ -980,6 +1035,98 @@ obj/linux64/Debug/src/main.o: src/main.cpp \
 ../../../libs/openFrameworks/3d/ofEasyCam.h:
 
 src/testApp.h:
+
+../../../addons/ofxTimeline/src/ofxTimeline.h:
+
+../../../addons/ofxRange/src/ofRange.h:
+
+../../../addons/ofxMSATimer/src/ofxMSATimer.h:
+
+../../../addons/ofxTimecode/src/ofxTimecode.h:
+
+../../../addons/ofxTimeline/src/ofxTLTrack.h:
+
+../../../addons/ofxXmlSettings/src/ofxXmlSettings.h:
+
+../../../addons/ofxXmlSettings/libs/tinyxml.h:
+
+../../../addons/ofxTween/src/ofxTween.h:
+
+../../../libs/poco/include/Poco/Delegate.h:
+
+../../../libs/poco/include/Poco/FunctionDelegate.h:
+
+../../../libs/poco/include/Poco/Expire.h:
+
+../../../addons/ofxTween/src/Easings/ofxEasing.h:
+
+../../../addons/ofxTween/src/Easings/ofxEasingBounce.h:
+
+../../../addons/ofxTween/src/Easings/ofxEasing.h:
+
+../../../addons/ofxTween/src/Easings/ofxEasingCubic.h:
+
+../../../addons/ofxTween/src/Easings/ofxEasingElastic.h:
+
+../../../addons/ofxTween/src/Easings/ofxEasingLinear.h:
+
+../../../addons/ofxTween/src/Easings/ofxEasingQuart.h:
+
+../../../addons/ofxTween/src/Easings/ofxEasingBack.h:
+
+../../../addons/ofxTween/src/Easings/ofxEasingCirc.h:
+
+../../../addons/ofxTween/src/Easings/ofxEasingExpo.h:
+
+../../../addons/ofxTween/src/Easings/ofxEasingQuad.h:
+
+../../../addons/ofxTween/src/Easings/ofxEasingQuint.h:
+
+../../../addons/ofxTween/src/Easings/ofxEasingSine.h:
+
+../../../addons/ofxTimeline/src/ofxTLEvents.h:
+
+../../../addons/ofxTimeline/src/ofxTLPage.h:
+
+../../../addons/ofxTimeline/src/ofxTLTrackHeader.h:
+
+../../../addons/ofxTextInputField/src/ofxTextInputField.h:
+
+../../../addons/ofxTextInputField/src/ofxTextInputFieldFontRenderer.h:
+
+../../../addons/ofxTimeline/src/ofxTLPageTabs.h:
+
+../../../addons/ofxTimeline/src/ofxTLZoomer.h:
+
+../../../addons/ofxTimeline/src/ofxTLTicker.h:
+
+../../../addons/ofxTimeline/src/ofxTLInOut.h:
+
+../../../addons/ofxTimeline/src/ofxTLCurves.h:
+
+../../../addons/ofxTimeline/src/ofxTLKeyframes.h:
+
+../../../addons/ofxTimeline/src/ofxTLBangs.h:
+
+../../../addons/ofxTimeline/src/ofxTLFlags.h:
+
+../../../addons/ofxTimeline/src/ofxTLSwitches.h:
+
+../../../addons/ofxTimeline/src/ofxTLColorTrack.h:
+
+../../../addons/ofxTimeline/src/ofxTLImageSequence.h:
+
+../../../addons/ofxTimeline/src/ofxTLImageSequenceFrame.h:
+
+../../../addons/ofxTimeline/src/ofxTLColors.h:
+
+../../../addons/ofxTimeline/src/ofxTLLFO.h:
+
+../../../addons/ofxTimeline/src/ofxTLVideoTrack.h:
+
+../../../addons/ofxTimeline/src/ofxTLVideoThumb.h:
+
+../../../addons/ofxTimeline/src/ofxTLImageTrack.h:
 
 src/dcMotor.h:
 
