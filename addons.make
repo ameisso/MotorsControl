@@ -1,2 +1,8 @@
 ofxXmlSettings
 ofxOsc
+ofxTimeline
+ofxTimecode
+ofxMSATimer
+ofxTextInputField
+ofxRange
+ofxTween

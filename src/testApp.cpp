@@ -26,6 +26,19 @@ void testApp::setup()
     readXmlSetup();
     thisOscReceiver.setup(oscReceivePort);
     ofSetWindowTitle("Remote");
+
+    //Timeline
+    timeline.setup();
+    timeline.setOffset(ofVec2f(0,20));
+    timeline.setDurationInSeconds(60); //TODO
+    timeline.setLoopType(OF_LOOP_NORMAL);
+
+    for(int i = 0; i < 2; i++)
+    {
+        timeline.addPage("Page "+ofToString(i));
+        timeline.addCurves("test");
+    }
+
 //nbDcMotors=14;
 //nbStepperMotor=4;
 //nbMemory=2;
@@ -110,6 +123,8 @@ void testApp::draw()
     //steppers
     for(vector< ofPtr<stepperMotor> >::iterator it = theSteppers.begin(); it != theSteppers.end(); ++it)
         (*it)->draw();
+
+    timeline.draw();
 }
 
 //--------------------------------------------------------------

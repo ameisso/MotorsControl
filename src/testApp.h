@@ -1,9 +1,11 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxTimeline.h"
 #include "dcMotor.h"
 #include "stepperMotor.h"
 #include "memory.h"
+
 class testApp : public ofBaseApp{
 
 	public:
@@ -47,4 +49,7 @@ class testApp : public ofBaseApp{
         ofxOscReceiver thisOscReceiver;
         ofxOscMessage thisOscReceivedMessage;
         string wrongMess;//String that contain an osc message if it wasn't destined to this programm.
+        
+        //Timeline
+        ofxTimeline timeline;
 };
